@@ -13,7 +13,7 @@ public class Expense {
     private int id;
 
     @ColumnInfo(name = "date")
-    private Date date;
+    private String date;
 
     @ColumnInfo(name = "amount")
     private double amount;
@@ -29,7 +29,7 @@ public class Expense {
 
 
 // Constructor
-    public Expense(int id, Date date, double amount, int categoryId, String description, int userId) {
+    public Expense(int id, String date, double amount, int categoryId, String description, int userId) {
         this.id = id;
         this.date = date;
         this.amount = amount;
@@ -47,11 +47,11 @@ public class Expense {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
