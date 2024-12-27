@@ -6,10 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.expencetracker.data.DOAs.BudgetDAO;
-import com.example.expencetracker.data.DOAs.CategoryDAO;
-import com.example.expencetracker.data.DOAs.ExpenseDAO;
-import com.example.expencetracker.data.DOAs.UserDAO;
+import com.example.expencetracker.data.DAOs.BudgetDAO;
+import com.example.expencetracker.data.DAOs.CategoryDAO;
+import com.example.expencetracker.data.DAOs.ExpenseDAO;
+import com.example.expencetracker.data.DAOs.UserDAO;
 import com.example.expencetracker.data.Entities.Budget;
 import com.example.expencetracker.data.Entities.Category;
 import com.example.expencetracker.data.Entities.Expense;

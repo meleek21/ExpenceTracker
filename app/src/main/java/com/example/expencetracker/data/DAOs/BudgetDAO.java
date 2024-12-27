@@ -1,4 +1,4 @@
-package com.example.expencetracker.data.DOAs;
+package com.example.expencetracker.data.DAOs;
 
 import androidx.room.Delete;
 import androidx.room.Insert;

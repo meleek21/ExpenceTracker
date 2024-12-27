@@ -1,6 +1,6 @@
 package com.example.expencetracker.data.Repositories;
 
-import com.example.expencetracker.data.DOAs.BudgetDAO;
+import com.example.expencetracker.data.DAOs.BudgetDAO;
 import com.example.expencetracker.data.Entities.Budget;
 
 import java.util.List;

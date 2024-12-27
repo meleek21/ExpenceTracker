@@ -1,4 +1,4 @@
-package com.example.expencetracker.data.DOAs;
+package com.example.expencetracker.data.DAOs;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -14,6 +14,8 @@ import java.util.List;
 public interface UserDAO {
     @Query("SELECT * FROM users")
     List<User> getAllUsers();
+    @Query("SELECT * FROM users WHERE username = :username")
+    User findByUsername(String username);
 
     @Query("SELECT * FROM users WHERE id = :id")
     User getUserById(int id);
@@ -26,4 +28,5 @@ public interface UserDAO {
 
     @Delete
     void deleteUser(User user);
+
 }
