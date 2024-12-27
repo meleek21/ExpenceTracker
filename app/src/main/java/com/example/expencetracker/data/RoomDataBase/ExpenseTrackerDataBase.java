@@ -17,12 +17,13 @@ import com.example.expencetracker.data.Entities.User;
 
 @Database(entities = {Expense.class, Category.class, Budget.class, User.class}, version = 1)
 public abstract class ExpenseTrackerDataBase extends RoomDatabase {
-
     private static ExpenseTrackerDataBase INSTANCE;
 
     public static ExpenseTrackerDataBase getDatabase(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), ExpenseTrackerDataBase.class, "expense_tracker_db")
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            ExpenseTrackerDataBase.class, "expense_tracker_db")
+                    .allowMainThreadQueries() // Only during development
                     .build();
         }
         return INSTANCE;

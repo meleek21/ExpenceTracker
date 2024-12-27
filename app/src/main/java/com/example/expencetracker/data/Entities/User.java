@@ -2,6 +2,7 @@ package com.example.expencetracker.data.Entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "users")
@@ -19,6 +20,7 @@ public class User {
     private String password;
 
     // Constructor
+    @Ignore
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;

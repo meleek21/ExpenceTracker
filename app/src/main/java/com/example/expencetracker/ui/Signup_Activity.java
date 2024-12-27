@@ -1,73 +1,153 @@
 package com.example.expencetracker.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.ComponentActivity;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import com.example.expencetracker.R;
 import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.DAOs.UserDAO;
-import com.example.expencetracker.data.Entities.User;
 import com.example.expencetracker.data.RoomDataBase.ExpenseTrackerDataBase;
 
-class SignupActivity extends AppCompatActivity {
-
+public class Signup_Activity extends AppCompatActivity {
     private UserRepository repository;
     private EditText email, username, password, confirmPassword;
+    private Button signUpButton;
+    private TextView loginLink;
+    private ExecutorService executorService;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        // Initialize ExecutorService for background operations
+        executorService = Executors.newSingleThreadExecutor();
 
         // Initialize UserRepository
         ExpenseTrackerDataBase db = ExpenseTrackerDataBase.getDatabase(this);
         UserDAO userDao = db.userDAO();
         repository = new UserRepository(userDao);
 
-        // UI elements
+        // Initialize views
         email = findViewById(R.id.email);
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         confirmPassword = findViewById(R.id.confirm_password);
-        Button signUpButton = findViewById(R.id.sign_up_button);
+        signUpButton = findViewById(R.id.sign_up_button);
+        loginLink = findViewById(R.id.login_link);
 
-        // Sign up button click listener
+        // Set click listeners
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailText = email.getText().toString();
-                String usernameText = username.getText().toString();
-                String passwordText = password.getText().toString();
-                String confirmPasswordText = confirmPassword.getText().toString();
-
-                if (passwordText.equals(confirmPasswordText)) {
-                    repository.registerUser(emailText, usernameText, passwordText);
-                    Toast.makeText(SignupActivity.this, "User registered", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SignupActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                }
+                handleSignUp();
             }
         });
 
-        // Edge-to-edge display
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        loginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToLogin();
+            }
         });
+    }
+
+    private void handleSignUp() {
+        String emailText = email.getText().toString().trim();
+        String usernameText = username.getText().toString().trim();
+        String passwordText = password.getText().toString();
+        String confirmPasswordText = confirmPassword.getText().toString();
+
+        // Validation
+        if (TextUtils.isEmpty(emailText) || TextUtils.isEmpty(usernameText) ||
+                TextUtils.isEmpty(passwordText) || TextUtils.isEmpty(confirmPasswordText)) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (usernameText.length() < 3) {
+            Toast.makeText(this, "Username must be at least 3 characters long", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!passwordText.equals(confirmPasswordText)) {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        signUpButton.setEnabled(false);
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Check if username exists
+                    if (repository.findByUsername(usernameText) != null) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(Signup_Activity.this,
+                                        "Username already exists", Toast.LENGTH_SHORT).show();
+                                signUpButton.setEnabled(true);
+                            }
+                        });
+                        return;
+                    }
+
+                    // Register user
+                    repository.registerUser(usernameText, emailText, passwordText);
+
+                    // Success
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(Signup_Activity.this,
+                                    "Registration successful!", Toast.LENGTH_SHORT).show();
+                            navigateToLogin();
+                        }
+                    });
+
+                } catch (Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(Signup_Activity.this,
+                                    "Registration failed: " + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                            signUpButton.setEnabled(true);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(Signup_Activity.this, Login_Activity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdown();
+        }
     }
 }

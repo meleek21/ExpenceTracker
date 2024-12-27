@@ -38,4 +38,12 @@
         android:layout_height="wrap_content"
         android:text="Sign Up" />
 
+    <TextView
+        android:id="@+id/login_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Login"
+        android:textAlignment="center"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>
