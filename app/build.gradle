@@ -59,4 +59,6 @@ dependencies {
     // UI components
     implementation libs.material.v1110
     implementation libs.recyclerview
+
+    implementation 'com.google.android.material:material:1.5.0'
 }

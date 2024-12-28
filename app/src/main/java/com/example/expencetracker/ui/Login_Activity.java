@@ -1,5 +1,4 @@
 package com.example.expencetracker.ui;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,15 +7,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.example.expencetracker.ui.Home_Activity;
 import com.example.expencetracker.MainActivity;
 import com.example.expencetracker.R;
 import com.example.expencetracker.data.Repositories.UserRepository;
@@ -58,6 +56,7 @@ public class Login_Activity extends AppCompatActivity {
                 if (usernameText.isEmpty() || passwordText.isEmpty()) {
                     Toast.makeText(Login_Activity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                     return;
+
                 }
 
                 // Perform authentication in background thread
@@ -70,12 +69,13 @@ public class Login_Activity extends AppCompatActivity {
                             public void run() {
                                 if (isAuthenticated) {
                                     // User authenticated, navigate to MainActivity
-                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                                    Intent intent = new Intent(Login_Activity.this, Home_Activity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
                                     finish(); // Close login activity
                                 } else {
                                     Toast.makeText(Login_Activity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                                    password.setText(""); // Clear the password field
                                 }
                             }
                         });
