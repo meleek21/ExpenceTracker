@@ -1,4 +1,4 @@
-package com.example.expencetracker.ui;
+package com.example.expencetracker.ui.Activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,6 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.example.expencetracker.ui.Home_Activity;
-import com.example.expencetracker.MainActivity;
 import com.example.expencetracker.R;
 import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.DAOs.UserDAO;

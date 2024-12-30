@@ -6,7 +6,7 @@ import com.example.expencetracker.data.Entities.Budget;
 import java.util.List;
 
 public class BudgetRepository {
-    private BudgetDAO budgetDAO;
+    private final BudgetDAO budgetDAO;
 
     public BudgetRepository(BudgetDAO budgetDAO) {
         this.budgetDAO = budgetDAO;

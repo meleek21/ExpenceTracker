@@ -1,4 +1,4 @@
-package com.example.expencetracker.ui;
+package com.example.expencetracker.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;

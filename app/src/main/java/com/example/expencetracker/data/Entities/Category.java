@@ -15,15 +15,13 @@ public class Category {
     @ColumnInfo(name = "type")
     private String type; // income/expense
 
-    @ColumnInfo(name = "user_id")
-    private int userId;
+
 
 
     // Constructor
-    public Category(String name, String type, int userId) {
+    public Category(String name, String type) {
         this.name = name;
         this.type = type;
-        this.userId = userId;
     }
 
     // Getters and setters
@@ -52,11 +50,7 @@ public class Category {
         this.type = type;
     }
 
-    public int getUserId() {
-        return userId;
-    }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+
+
 }

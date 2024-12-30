@@ -6,7 +6,7 @@ import com.example.expencetracker.data.Entities.Category;
 import java.util.List;
 
 public class CategoryRepository {
-    private CategoryDAO categoryDAO;
+    private final CategoryDAO categoryDAO;
 
     public CategoryRepository(CategoryDAO categoryDAO) {
         this.categoryDAO = categoryDAO;

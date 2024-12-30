@@ -10,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.expencetracker.ui.Signup_Activity;
+import com.example.expencetracker.ui.Activities.Signup_Activity;
 
 public class MainActivity extends AppCompatActivity {
 
