@@ -47,4 +47,8 @@ public class UserRepository {
     public User findByUsername(String username) {
         return userDAO.findByUsername(username);
     }
+
+    public int getUserIdByUsername(String username) {
+       return userDAO.getUserIdByUsername(username);
+    }
 }

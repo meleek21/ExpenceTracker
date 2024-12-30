@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private ExpenseRepository expenseRepository;
     private CategoryRepository categoryRepository;
     private BudgetRepository budgetRepository;
+    private int currentUserId;
 
     private TextView textTotalBalance;
     private TextView textMonthlyExpenses;
@@ -46,7 +47,13 @@ public class HomeFragment extends Fragment {
     private Button buttonAddExpense;
     private Button buttonAddIncome;
 
-    private static final int DEFAULT_USER_ID = 1;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            currentUserId = getArguments().getInt("USER_ID", -1);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -296,7 +303,7 @@ public class HomeFragment extends Fragment {
                             amount,
                             selectedCategory.getId(),
                             description,
-                            DEFAULT_USER_ID
+                            currentUserId
                     );
                 } else {
                     expense = new Expense(
@@ -305,7 +312,7 @@ public class HomeFragment extends Fragment {
                             amount,
                             selectedCategory.getId(),
                             description,
-                            DEFAULT_USER_ID
+                            currentUserId
                     );
                 }
 
@@ -351,7 +358,7 @@ public class HomeFragment extends Fragment {
     private void loadData() {
         new Thread(() -> {
             try {
-                List<Expense> allExpenses = expenseRepository.getAllExpenses();
+                List<Expense> allExpenses = expenseRepository.getExpensesByUserId(currentUserId);
 
                 // Get current month and year
                 Calendar calendar = Calendar.getInstance();

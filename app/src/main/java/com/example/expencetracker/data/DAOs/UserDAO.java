@@ -28,5 +28,6 @@ public interface UserDAO {
 
     @Delete
     void deleteUser(User user);
-
+    @Query("SELECT id FROM users WHERE username = :username LIMIT 1")
+    int getUserIdByUsername(String username);
 }

@@ -23,4 +23,7 @@ public interface ExpenseDAO {
 
     @Delete
     void deleteExpense(Expense expense);
+
+    @Query("SELECT * FROM expenses WHERE user_Id = :userId ORDER BY date DESC")
+    List<Expense> getExpensesByUserId(int userId);
 }

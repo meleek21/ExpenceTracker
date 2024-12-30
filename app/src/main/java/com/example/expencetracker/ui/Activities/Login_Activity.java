@@ -69,18 +69,20 @@ public class Login_Activity extends AppCompatActivity {
             }
 
             // Perform authentication in background thread
+            // In Login_Activity.java, modify the login button click listener
             executorService.execute(() -> {
-                boolean isAuthenticated = repository.authenticateUser(usernameText, passwordText);
+                // Get the user ID along with authentication
+                int userId = repository.getUserIdByUsername(usernameText); // You'll need to add this method to UserRepository
                 runOnUiThread(() -> {
-                    if (isAuthenticated) {
-                        // User authenticated, navigate to HomeActivity
+                    if (userId != -1) { // Assuming -1 means user not found
                         Intent intent = new Intent(Login_Activity.this, Home_Activity.class);
+                        intent.putExtra("USER_ID", userId); // Pass the user ID
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
-                        finish();  // Close Login Activity
+                        finish();
                     } else {
                         Toast.makeText(Login_Activity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-                        password.setText(""); // Clear the password field
+                        password.setText("");
                     }
                 });
             });

@@ -13,16 +13,25 @@ import com.example.expencetracker.ui.Fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home_Activity extends AppCompatActivity {
+    private int currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Get user ID from intent
+        currentUserId = getIntent().getIntExtra("USER_ID", -1);
+        if (currentUserId == -1) {
+            // Handle error - redirect to login
+            finish();
+            return;
+        }
+
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
 
-        // Load the default fragment
-        loadFragment(new HomeFragment());
+        // Load the default fragment with user ID
+        loadFragment(new HomeFragment(), currentUserId);
 
         bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
@@ -39,15 +48,24 @@ public class Home_Activity extends AppCompatActivity {
             }
 
             if (fragment != null) {
-                loadFragment(fragment);
+                loadFragment(fragment, currentUserId);
             }
             return true;
         });
     }
 
-    private void loadFragment(Fragment fragment) {
+    private void loadFragment(Fragment fragment, int userId) {
+        // Pass user ID to fragment using Bundle
+        Bundle args = new Bundle();
+        args.putInt("USER_ID", userId);
+        fragment.setArguments(args);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.commit();
+    }
+
+    public int getCurrentUserId() {
+        return currentUserId;
     }
 }
