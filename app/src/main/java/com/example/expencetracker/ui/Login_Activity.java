@@ -1,5 +1,5 @@
 package com.example.expencetracker.ui;
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,7 +27,6 @@ public class Login_Activity extends AppCompatActivity {
     private EditText username, password;
     private ExecutorService executorService;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,52 +45,50 @@ public class Login_Activity extends AppCompatActivity {
         password = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.login_button);
         TextView registerText = findViewById(R.id.register_text);
+        View backButton = findViewById(R.id.back_button);  // Add back button view reference
+
+        // Back button click listener
+        backButton.setOnClickListener(view -> {
+            // Go back to the MainActivity when the back button is pressed
+            Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);  // Add sliding effect
+            finish();  // Finish Login Activity
+        });
 
         // Login button click listener
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String usernameText = username.getText().toString();
-                String passwordText = password.getText().toString();
+        loginButton.setOnClickListener(v -> {
+            String usernameText = username.getText().toString();
+            String passwordText = password.getText().toString();
 
-                if (usernameText.isEmpty() || passwordText.isEmpty()) {
-                    Toast.makeText(Login_Activity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                    return;
+            if (usernameText.isEmpty() || passwordText.isEmpty()) {
+                Toast.makeText(Login_Activity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                }
-
-                // Perform authentication in background thread
-                executorService.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean isAuthenticated = repository.authenticateUser(usernameText, passwordText);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (isAuthenticated) {
-                                    // User authenticated, navigate to MainActivity
-                                    Intent intent = new Intent(Login_Activity.this, Home_Activity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
-                                    finish(); // Close login activity
-                                } else {
-                                    Toast.makeText(Login_Activity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-                                    password.setText(""); // Clear the password field
-                                }
-                            }
-                        });
+            // Perform authentication in background thread
+            executorService.execute(() -> {
+                boolean isAuthenticated = repository.authenticateUser(usernameText, passwordText);
+                runOnUiThread(() -> {
+                    if (isAuthenticated) {
+                        // User authenticated, navigate to HomeActivity
+                        Intent intent = new Intent(Login_Activity.this, Home_Activity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();  // Close Login Activity
+                    } else {
+                        Toast.makeText(Login_Activity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                        password.setText(""); // Clear the password field
                     }
                 });
-            }
+            });
         });
 
         // Register text click listener
-        registerText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Login_Activity.this, Signup_Activity.class);
-                startActivity(intent);
-            }
+        registerText.setOnClickListener(v -> {
+            Intent intent = new Intent(Login_Activity.this, Signup_Activity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // For sliding effect
         });
 
         // Edge-to-edge display

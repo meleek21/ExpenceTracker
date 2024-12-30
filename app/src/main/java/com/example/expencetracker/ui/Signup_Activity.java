@@ -9,9 +9,12 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;  // Import ImageView
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import com.example.expencetracker.MainActivity;
 import com.example.expencetracker.R;
 import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.DAOs.UserDAO;
@@ -44,6 +47,16 @@ public class Signup_Activity extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirm_password);
         signUpButton = findViewById(R.id.sign_up_button);
         loginLink = findViewById(R.id.login_link);
+
+        // Initialize the back button and set click listener to go to MainActivity
+        ImageView backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // When back button is clicked, navigate to MainActivity
+                navigateToMain();
+            }
+        });
 
         // Set click listeners
         signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +147,14 @@ public class Signup_Activity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void navigateToMain() {
+        // Navigate back to MainActivity
+        Intent intent = new Intent(Signup_Activity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();  // Close current activity
     }
 
     private void navigateToLogin() {
