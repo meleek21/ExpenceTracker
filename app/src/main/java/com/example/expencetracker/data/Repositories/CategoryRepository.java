@@ -31,4 +31,29 @@ public class CategoryRepository {
     public void deleteCategory(Category category) {
         categoryDAO.deleteCategory(category);
     }
+
+    // New method to set up initial categories
+    public void setupInitialData() {
+        new Thread(() -> {
+            try {
+                List<Category> categories = getAllCategories();
+                if (categories.isEmpty()) {
+                    // Create default categories
+                    Category[] defaultCategories = {
+                            new Category("General Expense", "expense"),
+                            new Category("Food", "expense"),
+                            new Category("Transportation", "expense"),
+                            new Category("Salary", "income"),
+                            new Category("Other Income", "income")
+                    };
+
+                    for (Category category : defaultCategories) {
+                        insertCategory(category);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 }

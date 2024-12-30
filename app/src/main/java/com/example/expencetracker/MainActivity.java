@@ -10,8 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.expencetracker.ui.Login_Activity; // Assuming Login_Activity exists
-import com.example.expencetracker.ui.Signup_Activity; // Assuming Signup_Activity exists
+import com.example.expencetracker.ui.Activities.Login_Activity; // Assuming Login_Activity exists
+import com.example.expencetracker.ui.Activities.Signup_Activity; // Assuming Signup_Activity exists
 
 public class MainActivity extends AppCompatActivity {
 

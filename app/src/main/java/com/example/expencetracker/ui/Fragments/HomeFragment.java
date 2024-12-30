@@ -73,27 +73,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupInitialData() {
-        new Thread(() -> {
-            try {
-                List<Category> categories = categoryRepository.getAllCategories();
-                if (categories.isEmpty()) {
-                    // Create default categories
-                    Category[] defaultCategories = {
-                            new Category("General Expense", "expense"),
-                            new Category("Food", "expense"),
-                            new Category("Transportation", "expense"),
-                            new Category("Salary", "income"),
-                            new Category("Other Income", "income")
-                    };
-
-                    for (Category category : defaultCategories) {
-                        categoryRepository.insertCategory(category);
-                    }
-                }
-            } catch (Exception e) {
-                Log.e("HomeFragment", "Error setting up initial data: " + e.getMessage());
-            }
-        }).start();
+        categoryRepository.setupInitialData();
     }
 
     private void initializeViews(View view) {
@@ -107,6 +87,17 @@ public class HomeFragment extends Fragment {
 
     private void setupRecyclerView() {
         expenseAdapter = new ExpenseAdapter();
+        expenseAdapter.setOnExpenseClickListener(new ExpenseAdapter.OnExpenseClickListener() {
+            @Override
+            public void onEditClick(Expense expense) {
+                editExpense(expense);
+            }
+
+            @Override
+            public void onDeleteClick(Expense expense) {
+                showDeleteConfirmationDialog(expense);
+            }
+        });
         recyclerView.setAdapter(expenseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -114,6 +105,71 @@ public class HomeFragment extends Fragment {
     private void setupClickListeners() {
         buttonAddExpense.setOnClickListener(v -> showAddExpenseDialog());
         buttonAddIncome.setOnClickListener(v -> showAddIncomeDialog());
+    }
+
+    private void editExpense(Expense expense) {
+        new Thread(() -> {
+            try {
+                List<Category> categories = categoryRepository.getAllCategories();
+                categories.removeIf(category ->
+                        expense.getAmount() < 0 ?
+                                !"expense".equalsIgnoreCase(category.getType()) :
+                                !"income".equalsIgnoreCase(category.getType())
+                );
+
+                if (categories.isEmpty()) {
+                    Category defaultCategory = new Category(
+                            expense.getAmount() < 0 ? "General Expense" : "General Income",
+                            expense.getAmount() < 0 ? "expense" : "income"
+                    );
+                    categoryRepository.insertCategory(defaultCategory);
+                    categories.add(defaultCategory);
+                }
+
+                List<Category> finalCategories = categories;
+
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        showTransactionDialog(finalCategories, expense.getAmount() < 0, expense);
+                    });
+                }
+            } catch (Exception e) {
+                Log.e("HomeFragment", "Error loading categories: " + e.getMessage());
+                if (isAdded()) {
+                    requireActivity().runOnUiThread(() -> {
+                        Toast.makeText(getContext(), "Error loading categories", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+        }).start();
+    }
+
+    private void showDeleteConfirmationDialog(Expense expense) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Delete Transaction")
+                .setMessage("Are you sure you want to delete this transaction?")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    new Thread(() -> {
+                        try {
+                            expenseRepository.deleteExpense(expense);
+                            if (isAdded()) {
+                                requireActivity().runOnUiThread(() -> {
+                                    loadData();
+                                    Toast.makeText(getContext(), "Transaction deleted", Toast.LENGTH_SHORT).show();
+                                });
+                            }
+                        } catch (Exception e) {
+                            Log.e("HomeFragment", "Error deleting expense: " + e.getMessage());
+                            if (isAdded()) {
+                                requireActivity().runOnUiThread(() -> {
+                                    Toast.makeText(getContext(), "Error deleting transaction", Toast.LENGTH_SHORT).show();
+                                });
+                            }
+                        }
+                    }).start();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 
     private void showAddExpenseDialog() {
@@ -125,7 +181,6 @@ public class HomeFragment extends Fragment {
                 expenseCategories.removeIf(category -> !"expense".equalsIgnoreCase(category.getType()));
 
                 if (expenseCategories.isEmpty()) {
-                    // Create a default expense category if none exists
                     Category defaultCategory = new Category("General Expense", "expense");
                     categoryRepository.insertCategory(defaultCategory);
                     expenseCategories.add(defaultCategory);
@@ -134,7 +189,7 @@ public class HomeFragment extends Fragment {
                 List<Category> finalCategories = expenseCategories;
 
                 requireActivity().runOnUiThread(() -> {
-                    showTransactionDialog(finalCategories, true);
+                    showTransactionDialog(finalCategories, true, null);
                 });
             } catch (Exception e) {
                 Log.e("HomeFragment", "Error loading categories: " + e.getMessage());
@@ -156,7 +211,6 @@ public class HomeFragment extends Fragment {
                 incomeCategories.removeIf(category -> !"income".equalsIgnoreCase(category.getType()));
 
                 if (incomeCategories.isEmpty()) {
-                    // Create a default income category if none exists
                     Category defaultCategory = new Category("General Income", "income");
                     categoryRepository.insertCategory(defaultCategory);
                     incomeCategories.add(defaultCategory);
@@ -165,7 +219,7 @@ public class HomeFragment extends Fragment {
                 List<Category> finalCategories = incomeCategories;
 
                 requireActivity().runOnUiThread(() -> {
-                    showTransactionDialog(finalCategories, false);
+                    showTransactionDialog(finalCategories, false, null);
                 });
             } catch (Exception e) {
                 Log.e("HomeFragment", "Error loading categories: " + e.getMessage());
@@ -178,7 +232,7 @@ public class HomeFragment extends Fragment {
         }).start();
     }
 
-    private void showTransactionDialog(List<Category> categories, boolean isExpense) {
+    private void showTransactionDialog(List<Category> categories, boolean isExpense, Expense existingExpense) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_add_expense, null);
@@ -196,6 +250,19 @@ public class HomeFragment extends Fragment {
         );
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(categoryAdapter);
+
+        // If editing, pre-fill the fields
+        if (existingExpense != null) {
+            editAmount.setText(String.valueOf(Math.abs(existingExpense.getAmount())));
+            editDescription.setText(existingExpense.getDescription());
+            // Set spinner selection based on existing category
+            for (int i = 0; i < categories.size(); i++) {
+                if (categories.get(i).getId() == existingExpense.getCategoryId()) {
+                    spinnerCategory.setSelection(i);
+                    break;
+                }
+            }
+        }
 
         Button buttonCancel = dialogView.findViewById(R.id.button_cancel);
         Button buttonSave = dialogView.findViewById(R.id.button_save);
@@ -221,29 +288,47 @@ public class HomeFragment extends Fragment {
 
                 Category selectedCategory = categories.get(spinnerCategory.getSelectedItemPosition());
 
-                Expense expense = new Expense(
-                        0,
-                        new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()),
-                        amount,
-                        selectedCategory.getId(),
-                        description,
-                        DEFAULT_USER_ID
-                );
+                final Expense expense;
+                if (existingExpense != null) {
+                    expense = new Expense(
+                            existingExpense.getId(),
+                            existingExpense.getDate(),
+                            amount,
+                            selectedCategory.getId(),
+                            description,
+                            DEFAULT_USER_ID
+                    );
+                } else {
+                    expense = new Expense(
+                            0,
+                            new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date()),
+                            amount,
+                            selectedCategory.getId(),
+                            description,
+                            DEFAULT_USER_ID
+                    );
+                }
 
                 new Thread(() -> {
                     try {
-                        expenseRepository.insertExpense(expense);
+                        if (existingExpense != null) {
+                            expenseRepository.updateExpense(expense);
+                        } else {
+                            expenseRepository.insertExpense(expense);
+                        }
+
                         if (isAdded()) {
                             requireActivity().runOnUiThread(() -> {
                                 dialog.dismiss();
                                 loadData();
                                 Toast.makeText(getContext(),
-                                        isExpense ? "Expense added successfully" : "Income added successfully",
+                                        existingExpense != null ? "Transaction updated" :
+                                                (isExpense ? "Expense added successfully" : "Income added successfully"),
                                         Toast.LENGTH_SHORT).show();
                             });
                         }
                     } catch (Exception e) {
-                        Log.e("HomeFragment", "Error inserting transaction: " + e.getMessage());
+                        Log.e("HomeFragment", "Error saving transaction: " + e.getMessage());
                         if (isAdded()) {
                             requireActivity().runOnUiThread(() -> {
                                 Toast.makeText(getContext(), "Error saving transaction: " + e.getMessage(),
@@ -276,20 +361,23 @@ public class HomeFragment extends Fragment {
                 // Calculate totals
                 double totalBalance = 0;
                 double monthlyExpenses = 0;
+                double monthlyIncome = 0;
 
                 for (Expense expense : allExpenses) {
                     totalBalance += expense.getAmount();
 
-                    // Check if expense is from current month
+                    // Check if expense is from the current month
                     if (expense.getDate().startsWith(currentYearMonth)) {
                         if (expense.getAmount() < 0) {
                             monthlyExpenses += Math.abs(expense.getAmount());
+                        } else {
+                            monthlyIncome += expense.getAmount();
                         }
                     }
                 }
 
-                // Get monthly budget (assuming 1000 as default if not set)
-                double monthlyBudget = 1000.00;
+                // Set monthly budget to total income for the month
+                double monthlyBudget = monthlyIncome;
 
                 // Update UI on main thread
                 double finalTotalBalance = totalBalance;

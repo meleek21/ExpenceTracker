@@ -1,4 +1,4 @@
-package com.example.expencetracker.ui;
+package com.example.expencetracker.ui.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,20 +7,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import com.example.expencetracker.ui.Home_Activity;
 import com.example.expencetracker.MainActivity;
 import com.example.expencetracker.R;
-import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.DAOs.UserDAO;
+import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.RoomDataBase.ExpenseTrackerDataBase;
+import com.example.expencetracker.ui.Activities.Home_Activity;
+import com.example.expencetracker.ui.Activities.Signup_Activity;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Login_Activity extends AppCompatActivity {
     private UserRepository repository;

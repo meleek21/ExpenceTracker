@@ -5,20 +5,23 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ImageView;  // Import ImageView
+
 import androidx.appcompat.app.AppCompatActivity;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import com.example.expencetracker.MainActivity;
 import com.example.expencetracker.R;
-import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.DAOs.UserDAO;
+import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.RoomDataBase.ExpenseTrackerDataBase;
+import com.example.expencetracker.ui.Activities.Login_Activity;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Signup_Activity extends AppCompatActivity {
     private UserRepository repository;
