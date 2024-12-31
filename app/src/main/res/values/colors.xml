@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue_primary">#219EBC</color>
-    <color name="blue_secondary">#3046D1</color>
-    <color name="background_light">#EDF2F4</color>
-    <color name="text_color">#023047</color>
-    <color name="hint_color">#78789D</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="blue_primary">#FF6F61</color> <!-- Warm coral red for primary branding -->
+    <color name="blue_secondary">#FFC857</color> <!-- Golden yellow for accents -->
+    <color name="background_light">#FFF4E6</color> <!-- Light peach for background -->
+    <color name="text_color">#333C5A</color> <!-- Deep indigo-gray for text -->
+    <color name="hint_color">#9A9A9A</color> <!-- Neutral medium gray for hints -->
+    <color name="white">#FFFFFFFF</color> <!-- White for contrast -->
 </resources>
