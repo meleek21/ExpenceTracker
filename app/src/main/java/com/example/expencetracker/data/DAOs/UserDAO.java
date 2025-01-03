@@ -14,7 +14,8 @@ import java.util.List;
 public interface UserDAO {
     @Query("SELECT * FROM users")
     List<User> getAllUsers();
-    @Query("SELECT * FROM users WHERE username = :username")
+
+    @Query("SELECT * FROM users WHERE username = :username LIMIT 1")
     User findByUsername(String username);
 
     @Query("SELECT * FROM users WHERE id = :id")
@@ -28,6 +29,7 @@ public interface UserDAO {
 
     @Delete
     void deleteUser(User user);
+
     @Query("SELECT id FROM users WHERE username = :username LIMIT 1")
     int getUserIdByUsername(String username);
 }

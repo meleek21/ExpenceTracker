@@ -31,15 +31,20 @@ public class UserRepository {
     public void deleteUser(User user) {
         userDAO.deleteUser(user);
     }
-    // Authenticate user
+
+    // Authenticate user (plain-text password)
     public boolean authenticateUser(String username, String password) {
         User user = userDAO.findByUsername(username);
-        return user != null && user.getPassword().equals(password);
+        if (user != null) {
+            // Compare plain-text passwords
+            return password.equals(user.getPassword());
+        }
+        return false;
     }
 
-    // Register user
-    public void registerUser(String username,String email, String password) {
-        User newUser = new User( username,email, password);
+    // Register user (plain-text password)
+    public void registerUser(String username, String email, String password) {
+        User newUser = new User(username, email, password); // Store plain-text password
         insertUser(newUser);
     }
 
@@ -48,7 +53,8 @@ public class UserRepository {
         return userDAO.findByUsername(username);
     }
 
+    // Get user ID by username
     public int getUserIdByUsername(String username) {
-       return userDAO.getUserIdByUsername(username);
+        return userDAO.getUserIdByUsername(username);
     }
 }

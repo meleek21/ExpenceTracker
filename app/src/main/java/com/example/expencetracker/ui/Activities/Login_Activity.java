@@ -47,15 +47,14 @@ public class Login_Activity extends AppCompatActivity {
         password = findViewById(R.id.password);
         Button loginButton = findViewById(R.id.login_button);
         TextView registerText = findViewById(R.id.register_text);
-        View backButton = findViewById(R.id.back_button);  // Add back button view reference
+        View backButton = findViewById(R.id.back_button);
 
         // Back button click listener
         backButton.setOnClickListener(view -> {
-            // Go back to the MainActivity when the back button is pressed
             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);  // Add sliding effect
-            finish();  // Finish Login Activity
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            finish();
         });
 
         // Login button click listener
@@ -69,14 +68,13 @@ public class Login_Activity extends AppCompatActivity {
             }
 
             // Perform authentication in background thread
-            // In Login_Activity.java, modify the login button click listener
             executorService.execute(() -> {
-                // Get the user ID along with authentication
-                int userId = repository.getUserIdByUsername(usernameText); // You'll need to add this method to UserRepository
+                boolean isAuthenticated = repository.authenticateUser(usernameText, passwordText);
                 runOnUiThread(() -> {
-                    if (userId != -1) { // Assuming -1 means user not found
+                    if (isAuthenticated) {
+                        int userId = repository.getUserIdByUsername(usernameText);
                         Intent intent = new Intent(Login_Activity.this, Home_Activity.class);
-                        intent.putExtra("USER_ID", userId); // Pass the user ID
+                        intent.putExtra("USER_ID", userId);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();
@@ -92,7 +90,7 @@ public class Login_Activity extends AppCompatActivity {
         registerText.setOnClickListener(v -> {
             Intent intent = new Intent(Login_Activity.this, Signup_Activity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // For sliding effect
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         // Edge-to-edge display
