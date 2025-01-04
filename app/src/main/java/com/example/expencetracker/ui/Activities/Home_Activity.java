@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.expencetracker.R;
 import com.example.expencetracker.ui.Fragments.BudgetFragment;
-import com.example.expencetracker.ui.Fragments.ExpensesFragment;
+import com.example.expencetracker.ui.Fragments.CategoryFragment;
 import com.example.expencetracker.ui.Fragments.HomeFragment;
 import com.example.expencetracker.ui.Fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,7 +40,7 @@ public class Home_Activity extends AppCompatActivity {
             if (itemId == R.id.navigation_home) {
                 fragment = new HomeFragment();
             } else if (itemId == R.id.navigation_expenses) {
-                fragment = new ExpensesFragment();
+                fragment = new CategoryFragment();
             } else if (itemId == R.id.navigation_budget) {
                 fragment = new BudgetFragment();
             } else if (itemId == R.id.navigation_profile) {
