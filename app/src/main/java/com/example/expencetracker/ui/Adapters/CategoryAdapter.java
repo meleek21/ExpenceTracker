@@ -58,7 +58,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            textCategoryName = itemView.findViewById(R.id.text_category_name);
+            textCategoryName = itemView.findViewById(R.id.text_description);
             buttonEdit = itemView.findViewById(R.id.button_edit);
             buttonDelete = itemView.findViewById(R.id.button_delete);
 
