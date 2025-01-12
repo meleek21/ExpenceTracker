@@ -15,10 +15,12 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.expencetracker.R;
+import com.example.expencetracker.data.DAOs.UserDAO;
 import com.example.expencetracker.data.Entities.User;
 import com.example.expencetracker.data.Repositories.UserRepository;
 import com.example.expencetracker.data.RoomDataBase.ExpenseTrackerDataBase;
 import com.example.expencetracker.ui.Activities.Login_Activity;
+import com.example.expencetracker.ui.Activities.Signup_Activity;
 import com.google.android.material.button.MaterialButton;
 
 public class ProfileFragment extends Fragment {
@@ -119,6 +121,12 @@ public class ProfileFragment extends Fragment {
 
             if (newUsername.isEmpty() || newEmail.isEmpty()) {
                 Toast.makeText(requireContext(), "Username and email cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
+            if (userRepository.findByUsername(newUsername) != null)  {
+                Toast.makeText(requireContext(),
+                        "Username already exists", Toast.LENGTH_SHORT).show();
                 return;
             }
 
