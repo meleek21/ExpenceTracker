@@ -1,0 +1,5 @@
+<!-- res/drawable/nav_icon_color_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/blue_primary" android:state_checked="true" /> <!-- Selected state -->
+    <item android:color="@color/hint_color" /> <!-- Unselected state -->
+</selector>

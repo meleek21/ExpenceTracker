@@ -3,46 +3,111 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp"
+    android:background="@drawable/bg_dialog">
+
+    <!-- Amount Input -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edit_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Amount"
+        android:hint="Enter amount"
+        android:textColorHint="@color/hint_color"
+        android:textColor="@color/text_color"
+        android:background="@drawable/bg_edit_text"
+        android:padding="12dp"
         android:inputType="numberDecimal"
-        android:layout_marginBottom="8dp"/>
+        android:maxLines="1"
+        android:imeOptions="actionNext"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Description Input -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edit_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description"
-        android:layout_marginBottom="8dp"/>
+        android:hint="Enter description"
+        android:textColorHint="@color/hint_color"
+        android:textColor="@color/text_color"
+        android:background="@drawable/bg_edit_text"
+        android:padding="12dp"
+        android:inputType="textCapSentences"
+        android:maxLines="3"
+        android:imeOptions="actionNext"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Category Spinner -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/spinner_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"/>
+        android:background="@drawable/bg_spinner"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
 
+    <!-- Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end">
+        android:gravity="end"
+        android:divider="@drawable/divider_vertical"
+        android:showDividers="middle">
 
         <Button
             android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel"
-            android:layout_marginEnd="8dp"/>
+            android:textColor="@color/text_color"
+            android:backgroundTint="@color/background_light"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp"
+            android:elevation="2dp"
+            android:outlineProvider="background"
+            android:layout_marginEnd="8dp" />
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"/>
+            android:text="Save"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue_secondary"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp"
+            android:elevation="2dp"
+            android:outlineProvider="background" />
     </LinearLayout>
 </LinearLayout>

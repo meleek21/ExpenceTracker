@@ -3,20 +3,25 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="Home"
+        android:iconTint="@color/nav_icon_color"
+        android:checked="true" />
 
     <item
         android:id="@+id/navigation_expenses"
         android:icon="@drawable/ic_expenses"
-        android:title="Category" />
+        android:title="Category"
+        android:iconTint="@color/nav_icon_color" />
 
     <item
         android:id="@+id/navigation_budget"
-        android:icon="@drawable/ic_home"
-        android:title="Budget" />
+        android:icon="@drawable/ic_budget"
+        android:title="Budget"
+        android:iconTint="@color/nav_icon_color" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_profile"
-        android:title="Profile" />
+        android:title="Profile"
+        android:iconTint="@color/nav_icon_color" />
 </menu>

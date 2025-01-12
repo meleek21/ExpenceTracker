@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue_primary">#FF6F61</color> <!-- Warm coral red for primary branding -->
-    <color name="blue_secondary">#FFC857</color> <!-- Golden yellow for accents -->
-    <color name="background_light">#FFF4E6</color> <!-- Light peach for background -->
-    <color name="text_color">#333C5A</color> <!-- Deep indigo-gray for text -->
-    <color name="hint_color">#9A9A9A</color> <!-- Neutral medium gray for hints -->
+    <color name="blue_primary">#2E86AB</color> <!-- Deep blue for primary branding (trust, calmness) -->
+    <color name="blue_secondary">#66BB6A</color> <!-- Soft green for accents (growth, positivity) -->
+    <color name="background_light">#FAFAFA</color> <!-- Light neutral background (clean, modern) -->
+    <color name="text_color">#333C5A</color> <!-- Deep indigo-gray for text (readability) -->
+    <color name="hint_color">#BDBDBD</color> <!-- Light gray for hints (subtle, non-distracting) -->
     <color name="white">#FFFFFFFF</color> <!-- White for contrast -->
+    <color name="accent">#FF6F61</color>
+    <color name="nav_icon_color">#333C5A</color>
 </resources>

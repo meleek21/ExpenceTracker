@@ -1,0 +1,5 @@
+<!-- res/drawable/bg_header.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/blue_secondary"/>
+    <corners android:radius="12dp"/>
+</shape>

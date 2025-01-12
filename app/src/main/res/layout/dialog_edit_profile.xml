@@ -44,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        app:boxStrokeColor="@color/blue_primary"
         app:hintTextColor="@color/hint_color">
 
         <com.google.android.material.textfield.TextInputEditText

@@ -3,22 +3,49 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp"
+    android:background="@drawable/bg_dialog">
 
     <!-- Category Name -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category Name"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/edit_category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Category Name" />
+        android:hint="Enter category name"
+        android:textColorHint="@color/hint_color"
+        android:textColor="@color/text_color"
+        android:background="@drawable/bg_edit_text"
+        android:padding="12dp"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:imeOptions="actionDone" />
 
     <!-- Category Type Radio Buttons -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category Type"
+        android:textColor="@color/text_color"
+        android:textSize="14sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold" />
+
     <RadioGroup
         android:id="@+id/radio_group_category_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
         <RadioButton
             android:id="@+id/radio_expense"
@@ -26,14 +53,22 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Expense"
-            android:checked="true" />
+            android:textColor="@color/text_color"
+            android:buttonTint="@color/blue_primary"
+            android:checked="true"
+            android:padding="8dp"
+            android:fontFamily="sans-serif-medium" />
 
         <RadioButton
             android:id="@+id/radio_income"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Income" />
+            android:text="Income"
+            android:textColor="@color/text_color"
+            android:buttonTint="@color/blue_primary"
+            android:padding="8dp"
+            android:fontFamily="sans-serif-medium" />
     </RadioGroup>
 
     <!-- Buttons -->
@@ -41,20 +76,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:weightSum="2"
+        android:divider="@drawable/divider_vertical"
+        android:showDividers="middle">
 
         <Button
             android:id="@+id/button_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="Cancel"
+            android:textColor="@color/text_color"
+            android:backgroundTint="@color/background_light"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:paddingVertical="12dp"
+            android:elevation="2dp"
+            android:outlineProvider="background" />
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save" />
+            android:text="Save"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/blue_secondary"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            android:paddingVertical="12dp"
+            android:elevation="2dp"
+            android:outlineProvider="background" />
     </LinearLayout>
 </LinearLayout>
