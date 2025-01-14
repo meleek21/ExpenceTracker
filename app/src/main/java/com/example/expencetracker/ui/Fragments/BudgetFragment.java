@@ -279,7 +279,7 @@ public class BudgetFragment extends Fragment {
     private void loadBarChartData(double totalIncome, double totalExpenses) {
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry(0, (float) totalIncome)); // Income
-        entries.add(new BarEntry(1, (float) totalExpenses)); // Expenses
+        entries.add(new BarEntry(1, (float) totalExpenses*-1)); // Expenses
 
         BarDataSet dataSet = new BarDataSet(entries, "Income vs. Expenses");
         dataSet.setColors(new int[]{
