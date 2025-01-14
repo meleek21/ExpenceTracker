@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <!-- Color Indicator -->
+    <View
+        android:id="@+id/legend_color"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/black" />
+
+    <!-- Category Name -->
+    <TextView
+        android:id="@+id/legend_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Category"
+        android:textSize="12sp"
+        android:textColor="@android:color/black" />
+</LinearLayout>

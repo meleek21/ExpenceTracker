@@ -14,6 +14,9 @@ public interface BudgetDAO {
     @Query("SELECT * FROM budgets")
     List<Budget> getAllBudgets();
 
+    @Query("SELECT * FROM budgets WHERE user_id = :userId")
+    List<Budget> getBudgetsByUserId(int userId);
+
     @Query("SELECT * FROM budgets WHERE id = :id")
     Budget getBudgetById(int id);
 

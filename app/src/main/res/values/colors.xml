@@ -7,4 +7,14 @@
     <color name="white">#FFFFFFFF</color> <!-- White for contrast -->
     <color name="accent">#FF6F61</color>
     <color name="nav_icon_color">#333C5A</color>
+    <color name="color1">#FFD32F2F</color>
+    <color name="color2">#FFC2185B</color>
+    <color name="color3">#FF7B1FA2</color>
+    <color name="color4">#FF512DA8</color>
+    <color name="color5">#FF303F9F</color>
+    <color name="color6">#FF1976D2</color>
+    <color name="color7">#FF0288D1</color>
+    <color name="color8">#FF0097A7</color>
+    <color name="color9">#FF00796B</color>
+    <color name="color10">#FF388E3C</color>
 </resources>

@@ -87,4 +87,6 @@ public class Budget {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+
 }

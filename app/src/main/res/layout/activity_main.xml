@@ -30,15 +30,15 @@
         android:layout_height="60dp"
         android:fontFamily="@font/bubblegum_sans"
         android:text="Sign Up"
-        android:textSize="20sp"
         android:textAllCaps="false"
+        android:textSize="20sp"
         app:cornerRadius="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.765" />
+        app:layout_constraintVertical_bias="0.774" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
@@ -46,16 +46,16 @@
         android:layout_height="60dp"
         android:fontFamily="@font/bubblegum_sans"
         android:text="Log in"
-        android:textSize="20sp"
         android:textAllCaps="false"
+        android:textSize="20sp"
         app:backgroundTint="@color/blue_secondary"
         app:cornerRadius="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.765" />
+        app:layout_constraintVertical_bias="0.687" />
 
     <View
         android:id="@+id/wave_bottom"

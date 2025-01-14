@@ -31,6 +31,12 @@ public class ExpenseRepository {
     public void deleteExpense(Expense expense) {
         expenseDAO.deleteExpense(expense);
     }
+    public double getTotalIncome(int userId) {
+        return expenseDAO.getTotalIncome();
+    }
+    public double getTotalExpenses(int userId) {
+        return expenseDAO.getTotalExpenses();
+    }
 
     public List<Expense> getExpensesByUserId(int userId) {
         return expenseDAO.getExpensesByUserId(userId);

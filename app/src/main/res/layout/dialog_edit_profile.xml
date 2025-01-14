@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="24dp"
     android:background="@color/background_light">
 
     <!-- Username -->
@@ -14,13 +14,17 @@
         android:layout_height="wrap_content"
         android:hint="Username"
         app:boxStrokeColor="@color/blue_primary"
-        app:hintTextColor="@color/hint_color">
+        app:hintTextColor="@color/hint_color"
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="@color/white"
+        android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"/>
+            android:textColor="@color/text_color"
+            android:padding="12dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Email -->
@@ -29,14 +33,18 @@
         android:layout_height="wrap_content"
         android:hint="Email"
         app:boxStrokeColor="@color/blue_primary"
-        app:hintTextColor="@color/hint_color">
+        app:hintTextColor="@color/hint_color"
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="@color/white"
+        android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:textColor="@color/text_color"/>
+            android:textColor="@color/text_color"
+            android:padding="12dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Password -->
@@ -44,14 +52,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
-        app:hintTextColor="@color/hint_color">
+        app:hintTextColor="@color/hint_color"
+        app:boxStrokeColor="@color/blue_primary"
+        app:boxBackgroundMode="outline"
+        app:boxBackgroundColor="@color/white"
+        android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:textColor="@color/text_color"/>
+            android:textColor="@color/text_color"
+            android:padding="12dp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Buttons -->
@@ -59,27 +72,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="24dp">
 
         <Button
             android:id="@+id/button_cancel"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:text="Cancel"
-            android:textColor="@color/text_color"
+            android:textColor="@color/white"
             android:backgroundTint="@color/blue_secondary"
-            android:layout_marginEnd="8dp"/>
+            android:fontFamily="@font/bubblegum_sans"
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"
+            android:elevation="4dp"
+            app:cornerRadius="28dp"/>
 
         <Button
             android:id="@+id/button_save"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
             android:text="Save"
             android:textColor="@color/white"
             android:backgroundTint="@color/blue_primary"
-            android:layout_marginStart="8dp"/>
+            android:fontFamily="@font/bubblegum_sans"
+            android:textSize="16sp"
+            android:layout_marginStart="8dp"
+            android:elevation="4dp"
+            app:cornerRadius="28dp"/>
     </LinearLayout>
 
 </LinearLayout>

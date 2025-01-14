@@ -1,91 +1,82 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/background_light"
+    tools:context=".ui.Fragments.BudgetFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="24dp"> <!-- Increased padding for the entire layout -->
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/budget_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Budget Overview"
-            android:textSize="24sp"
-            android:textColor="@color/text_color"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Time Range Selector -->
-        <Spinner
-            android:id="@+id/time_range_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Bar Chart -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Budget vs. Spending"
-            android:textSize="18sp"
-            android:textColor="@color/text_color"
-            android:layout_marginBottom="8dp"/>
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/bar_chart"
+        <!-- Header Section with Gradient Background -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginBottom="24dp"/>
-
-        <!-- Pie Chart -->
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Spending Distribution"
-            android:textSize="18sp"
-            android:textColor="@color/text_color"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/blue_primary"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"> <!-- Fallback color -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/header_gradient"
+                android:orientation="vertical"
+                android:padding="24dp"> <!-- Apply gradient background -->
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/bubblegum_sans"
+                    android:text="Budget Overview"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold" /> <!-- Added margin below the title -->
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    <!-- Pie Chart -->
+    <!-- Custom Legend Layout -->
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pie_chart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="320dp"
+            android:layout_below="@+id/cardView"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="24dp"
+            android:background="@color/white"
+            android:padding="24dp" />
 
-        <!-- Budget Summary -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:background="@drawable/bg_summary_box">
+android:id="@+id/custom_legend"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_below="@id/pie_chart"
+android:layout_marginTop="24dp"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white"
+    android:elevation="6dp"
+    android:outlineProvider="background" />
 
-            <TextView
-                android:id="@+id/total_budget_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Total Budget: $1000"
-                android:textSize="16sp"
-                android:textColor="@color/text_color"/>
-
-            <TextView
-                android:id="@+id/remaining_budget_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remaining Budget: $600"
-                android:textSize="16sp"
-                android:textColor="@color/text_color"/>
-
-            <TextView
-                android:id="@+id/overspending_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Overspending: $0"
-                android:textSize="16sp"
-                android:textColor="@color/text_color"/>
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    <!-- Bar Chart -->
+<com.github.mikephil.charting.charts.BarChart
+android:id="@+id/bar_chart"
+android:layout_width="match_parent"
+android:layout_height="320dp"
+    android:layout_below="@id/custom_legend"
+    android:layout_marginTop="24dp"
+    android:layout_marginBottom="24dp"
+    android:background="@color/white"
+    android:padding="24dp" />
+    </RelativeLayout>
+    </ScrollView>

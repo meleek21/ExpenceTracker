@@ -26,4 +26,10 @@ public interface ExpenseDAO {
 
     @Query("SELECT * FROM expenses WHERE user_Id = :userId ORDER BY date DESC")
     List<Expense> getExpensesByUserId(int userId);
+
+    @Query("Select SUM (amount) from expenses where amount> 0")
+    double getTotalIncome();
+
+    @Query("Select SUM (amount) from expenses where amount< 0")
+    double getTotalExpenses();
 }

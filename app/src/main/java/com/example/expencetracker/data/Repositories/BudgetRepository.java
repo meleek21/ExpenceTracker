@@ -12,6 +12,10 @@ public class BudgetRepository {
         this.budgetDAO = budgetDAO;
     }
 
+    public List<Budget> getBudgetsByUserId(int userId) {
+        return budgetDAO.getBudgetsByUserId(userId);
+    }
+
     public List<Budget> getAllBudgets() {
         return budgetDAO.getAllBudgets();
     }
