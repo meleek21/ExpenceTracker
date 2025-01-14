@@ -46,8 +46,8 @@ public class BudgetFragment extends Fragment {
     private PieChart pieChart;
     private BarChart barChart;
     private ExpenseRepository expenseRepository;
-    private BudgetRepository budgetRepository;
     private CategoryRepository categoryRepository;
+    private BudgetRepository budgetRepository;
     private int currentUserId;
 
     @Override

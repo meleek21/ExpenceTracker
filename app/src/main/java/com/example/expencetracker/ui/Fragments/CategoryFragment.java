@@ -30,7 +30,7 @@ public class CategoryFragment extends Fragment {
 
     private CategoryRepository categoryRepository;
     private RecyclerView recyclerViewExpense, recyclerViewIncome;
-    private CategoryAdapter expenseAdapter, incomeAdapter;
+    private CategoryAdapter categoryAdapter, incomeAdapter;
     private Button buttonAddCategory;
     private TextView textExpenseCategories, textIncomeCategories;
 
@@ -63,8 +63,8 @@ public class CategoryFragment extends Fragment {
 
     private void setupRecyclerViews() {
         // Expense Categories RecyclerView
-        expenseAdapter = new CategoryAdapter();
-        expenseAdapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
+        categoryAdapter = new CategoryAdapter();
+        categoryAdapter.setOnCategoryClickListener(new CategoryAdapter.OnCategoryClickListener() {
             @Override
             public void onEditClick(Category category) {
                 showEditCategoryDialog(category);
@@ -75,7 +75,7 @@ public class CategoryFragment extends Fragment {
                 showDeleteConfirmationDialog(category);
             }
         });
-        recyclerViewExpense.setAdapter(expenseAdapter);
+        recyclerViewExpense.setAdapter(categoryAdapter);
         recyclerViewExpense.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Income Categories RecyclerView
@@ -113,7 +113,7 @@ public class CategoryFragment extends Fragment {
 
                 // Update UI on the main thread
                 requireActivity().runOnUiThread(() -> {
-                    expenseAdapter.setCategories(expenseCategories);
+                    categoryAdapter.setCategories(expenseCategories);
                     incomeAdapter.setCategories(incomeCategories);
                     textExpenseCategories.setText("Expense Categories (" + expenseCategories.size() + ")");
                     textIncomeCategories.setText("Income Categories (" + incomeCategories.size() + ")");
